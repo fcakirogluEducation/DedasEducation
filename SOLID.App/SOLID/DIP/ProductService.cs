@@ -5,18 +5,15 @@ internal interface IProductService
     List<Product> GetList();
 }
 
-internal class ProductService : IProductService
+internal class ProductService(IProductRepository productRepository) : IProductService
 {
-    private readonly IProductRepository _productRepository;
-
-    public ProductService(IProductRepository productRepository)
-    {
-        _productRepository = productRepository;
-    }
-
-
     public List<Product> GetList()
     {
-        return _productRepository.GetList();
+        return productRepository.GetList();
+    }
+
+    public void ChangeRepository(IProductRepository repository)
+    {
+        productRepository = repository;
     }
 }

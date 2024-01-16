@@ -7,12 +7,19 @@ Console.WriteLine("Hello, World!");
 
 //DI, IOC , DI => IOC Container/ Dependency Injection Container : .Net Core API/MVC
 var productRepository = new ProductRepository();
-var productRepositoryWithOracle = new ProductRepositoryWithOracle();
-var productService = new ProductService(productRepositoryWithOracle);
+var productService = new ProductService(productRepository);
 var productController = new ProductController(productService);
+
 
 var products = productController.GetList();
 products.ForEach(product => Console.WriteLine(product.Name));
+
+
+productService.ChangeRepository(new ProductRepositoryWithOracle());
+
+var products2 = productController.GetList();
+products2.ForEach(product => Console.WriteLine(product.Name));
+
 
 #region LSP
 
