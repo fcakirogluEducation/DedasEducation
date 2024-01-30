@@ -6,14 +6,10 @@ internal class ArrayTopic
 {
     // bet practice yöntem değil
     //private static ArrayList numArrayList = new(); // instance variable
-    public static readonly List<int> Numbers=new();
-    public static readonly HashSet<int> NumbersAsHashSet = new();
-
-
+    public static readonly List<int> Numbers = new();
     public static Dictionary<string, string> MyDictionary = new();
+    public static readonly HashSet<int> NumbersAsHashSet = new();
     public static readonly Hashtable DictionaryAsHashTable = new();
-
-
     private static int[] _numberAsArray = new int[2] { 1, 2 };
 
     static ArrayTopic()

@@ -1,12 +1,36 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using CsharpLesson;
+using OOPConcept;
+using OOPConcept.Inheritance;
+using OOPConcept.Polymorphism;
+
 
 Console.WriteLine("C# Topics");
 
+#region Polymorphism
 
-var arrayTopic = new ArrayTopic();
-var arrayTopic2 = new ArrayTopic();
+var phone = new Phone() { Id = 1, Model = "IPhone13" };
+Console.WriteLine(phone.ToString());
+
+#endregion
+
+#region Encapsulation
+
+//var helper = new Encapsulation();
+//var product = new ProductHelper
+//{
+//    Kdv = 30
+//};
+//product.Console.WriteLine(product.Kdv); 
+
+#endregion
+
+#region Array
+
+//var arrayTopic = new ArrayTopic();
+//var arrayTopic2 = new ArrayTopic(); 
+
+#endregion
 
 #region Static Topic
 

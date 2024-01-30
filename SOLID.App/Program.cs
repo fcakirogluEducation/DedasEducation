@@ -20,7 +20,6 @@ productService.ChangeRepository(new ProductRepositoryWithOracle());
 var products2 = productController.GetList();
 products2.ForEach(product => Console.WriteLine(product.Name));
 
-
 #region LSP
 
 //Phone phone = new SmartPhone();
