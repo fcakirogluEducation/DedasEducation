@@ -6,28 +6,63 @@ namespace DedasApp.API.Controllers
     /// <summary>
     /// GET  https://localhost:5000/api/values
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // attribute based routing
     [ApiController]
     public class ValuesController : ControllerBase
     {
         [NonAction]
-        public int Calculate()
+        private int Calculate()
         {
             return 5;
         }
 
 
         [HttpGet]
-        public string HelloWorld()
+        public string GetAll()
         {
-            return "Hello world";
+            return $"get all";
         }
 
-        // endpoint
-        //[HttpGet]
-        //public int Sum(int a, int b)
-        //{
-        //    return a + b;
-        //}
+        //// https://localhost:5000/api/values?id=1 // querystrings
+        //// https://localhost:5000/api/values/1 // route data parameters
+        [HttpGet("{id}")]
+        public string GetById(int id) //
+        {
+            return $"get by id {id}";
+        }
+
+
+        [HttpGet("{page}/{pageSize}")]
+        public string GetAllWithPaged(int page, int pageSize) //
+        {
+            return $"get all {page} - {pageSize}";
+        }
+
+        [Route("GetAllWithPaged/{page}")]
+        [HttpGet]
+        public string GetAllWithPaged(int page) //
+        {
+            return $"GetAllWithPaged {page}";
+        }
+
+
+        [HttpPost]
+        public string Save()
+        {
+            return "save";
+        }
+
+
+        [HttpPut]
+        public string Update()
+        {
+            return "save";
+        }
+
+        [HttpDelete]
+        public string Delete()
+        {
+            return "save";
+        }
     }
 }
