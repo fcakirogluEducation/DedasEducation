@@ -24,7 +24,12 @@ namespace DedasApp.API.Models.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(Product productToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product? GetByName(string name)
         {
             throw new NotImplementedException();
         }

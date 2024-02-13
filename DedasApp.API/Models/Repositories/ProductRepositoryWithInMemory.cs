@@ -38,11 +38,14 @@ namespace DedasApp.API.Models.Repositories
             Products[productForIndex].Price = product.Price;
         }
 
-        public void Delete(int id)
+        public void Delete(Product productToDelete)
         {
-            var productToDelete = GetById(id);
-
             Products.Remove(productToDelete!);
+        }
+
+        public Product? GetByName(string name)
+        {
+            return Products.FirstOrDefault(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

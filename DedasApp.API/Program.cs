@@ -1,14 +1,12 @@
+using DedasApp.API.Consts;
+using DedasApp.API.Filters;
 using DedasApp.API.Models;
 using DedasApp.API.Models.Repositories;
 using DedasApp.API.Models.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// DI Container (Dependency Injection) / IoC Container (Inversion of Control) Framework
-
-// Asp.Net API=> Autfact,Ninject,
-//Dependency Inverson / Inversion of Control => Dependency Injection(Design Pattern)
 
 
 builder.Services.AddControllers();
@@ -16,21 +14,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Flow
-// Singleton > Scoped > Transient kullanamazs?n.
-// Transient> Scoped> Singleton  kullanabilirsin.
-
-
-//Singleton
-// Helper
-builder.Services.AddSingleton<UrlHelper>();
-
-//Scoped
+builder.Services.AddScoped<NotFoundFilterAttribute>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithInMemory>("in-memory");
-builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithSqlServer>("sqlserver");
-//Transient
+builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithInMemory>(RepositoryConst.InMemory);
+builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithSqlServer>(RepositoryConst.SqlServer);
 
+builder.Services.AddFluentValidationAutoValidation(x => x.DisableDataAnnotationsValidation = true);
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

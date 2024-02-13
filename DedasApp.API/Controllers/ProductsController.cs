@@ -1,4 +1,6 @@
-﻿using DedasApp.API.Models.ProductModels;
+﻿using System.Diagnostics;
+using DedasApp.API.Filters;
+using DedasApp.API.Models.ProductModels;
 using DedasApp.API.Models.Repositories;
 using DedasApp.API.Models.Services;
 using Microsoft.AspNetCore.Http;
@@ -15,14 +17,21 @@ namespace DedasApp.API.Controllers
         // MEMORY LEAK
         // CRUD operation
         // Create, Read, Update, Delete
-
-
+        [ServiceFilter<NotFoundFilterAttribute>]
+        [MyResourceFilter]
+        [MyActionFilter]
+        [MyResultFilter]
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_productService.GetAll());
+            Thread.Sleep(100);
+            var response = _productService.GetAll();
+
+            return Ok(response);
         }
 
+        [ServiceFilter<NotFoundFilterAttribute>]
+        [LoggingActionFilter]
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -48,6 +57,7 @@ namespace DedasApp.API.Controllers
             return NoContent();
         }
 
+        [ServiceFilter<NotFoundFilterAttribute>]
         //Route constraint
         [HttpDelete("{id:int}")]
         public IActionResult DeleteProduct(int id)

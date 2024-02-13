@@ -35,8 +35,8 @@ namespace DedasApp.API.Models.Services
             var newProduct = new Product()
             {
                 Id = new Random().Next(1, 10000),
-                Name = request.Name,
-                Price = request.Price,
+                Name = request.Name!,
+                Price = request.Price!.Value,
                 Barcode = "abc",
                 Created = DateTime.Now
             };
@@ -79,7 +79,7 @@ namespace DedasApp.API.Models.Services
                 throw new Exception("Product not found");
             }
 
-            _productRepository.Delete(id);
+            _productRepository.Delete(hasProduct);
         }
     }
 }
