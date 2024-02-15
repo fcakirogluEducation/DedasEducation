@@ -43,10 +43,12 @@ namespace DedasApp.API.Controllers
             return Ok(product);
         }
 
-
+        [SendSmsForExceptionFilter]
         [HttpPost]
         public IActionResult CreateProduct(ProductCreateRequestDto request)
         {
+            throw new Exception("Hata oluştu");
+
             return Created(string.Empty, _productService.Save(request));
         }
 
