@@ -1,8 +1,30 @@
-﻿namespace DedasApp.API.Models
+﻿using System.Net;
+using System.Text.Json.Serialization;
+
+namespace DedasApp.API.Models;
+
+public record Response<T>
 {
-    public class Response<T>
+    public T? Data { get; init; }
+    public List<string>? Errors { get; init; }
+
+    [JsonIgnore] public HttpStatusCode StatusCode { get; init; }
+
+    //Static factory method design pattern
+
+
+    public static Response<T> Success(T data, HttpStatusCode status)
     {
-        public T? Data { get; set; }
-        public List<string>? Errors { get; set; }
+        return new Response<T> { Data = data, StatusCode = status };
+    }
+
+    public static Response<T> Fail(List<string> errors, HttpStatusCode status)
+    {
+        return new Response<T> { Errors = errors, StatusCode = status };
+    }
+
+    public static Response<T> Fail(string error, HttpStatusCode status)
+    {
+        return new Response<T> { Errors = new List<string> { error }, StatusCode = status };
     }
 }

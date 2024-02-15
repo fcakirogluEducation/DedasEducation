@@ -4,7 +4,7 @@ namespace DedasApp.API.Models.Repositories;
 
 public interface IProductRepository
 {
-    List<Product> GetAll();
+    IReadOnlyList<Product> GetAll();
     Product? GetById(int id);
     void Create(Product product);
     void Update(Product product);

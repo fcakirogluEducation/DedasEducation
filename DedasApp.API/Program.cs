@@ -1,28 +1,51 @@
-using DedasApp.API.Consts;
+using DedasApp.API.Extensions;
 using DedasApp.API.Filters;
-using DedasApp.API.Models;
-using DedasApp.API.Models.Repositories;
-using DedasApp.API.Models.Services;
-using FluentValidation;
-using FluentValidation.AspNetCore;
+using DedasApp.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddBehaviorConfigure().AddControllers(x => x.Filters.Add<ValidationFilterAttribute>());
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddServices().AddRepositories();
 
-builder.Services.AddScoped<NotFoundFilterAttribute>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithInMemory>(RepositoryConst.InMemory);
-builder.Services.AddKeyedScoped<IProductRepository, ProductRepositoryWithSqlServer>(RepositoryConst.SqlServer);
-
-builder.Services.AddFluentValidationAutoValidation(x => x.DisableDataAnnotationsValidation = true);
-
-builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
+
+app.UseCustomExceptionHandler();
+app.UseMiddleware<WhiteListIpMiddleware>();
+
+#region Örnek middleware
+
+//app.Use(async (context, next) =>
+//{
+//    await context.Response.WriteAsync("1. middleware request\n");
+//    // Do work that doesn't write to the Response.
+//    // Request
+//    await next();
+//    await context.Response.WriteAsync("1. middleware response\n");
+//    // Response
+//});
+
+//app.Use(async (context, next) =>
+//{
+//    await context.Response.WriteAsync("2. middleware request\n");
+//    // Do work that doesn't write to the Response.
+//    // Request
+//    await next();
+//    await context.Response.WriteAsync("2. middleware response\n");
+//    // Response
+//});
+
+//app.Map("/ornek",
+//    app => { app.Run(async (context) => { await context.Response.WriteAsync("terminal middleware\n"); }); });
+
+
+//app.MapWhen(context => context.Request.Query.ContainsKey("version"),
+//    app => { app.Run(async (context) => { await context.Response.WriteAsync("terminal middleware\n"); }); });
+
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
