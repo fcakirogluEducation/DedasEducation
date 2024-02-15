@@ -1,6 +1,7 @@
-﻿using DedasApp.API.Models.ProductModels;
-using DedasApp.API.Models.Repositories;
-using FluentValidation;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using Repositories.Products;
+using Services.Products.Dtos;
 
 namespace DedasApp.API.Models.Products;
 

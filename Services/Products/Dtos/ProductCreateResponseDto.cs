@@ -1,4 +1,4 @@
-﻿namespace DedasApp.API.Models.ProductModels;
+﻿namespace Services.Products.Dtos;
 
 public class ProductCreateResponseDto
 {

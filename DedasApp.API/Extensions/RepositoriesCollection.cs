@@ -1,5 +1,5 @@
-﻿using DedasApp.API.Consts;
-using DedasApp.API.Models.Repositories;
+﻿using Repositories.Consts;
+using Repositories.Products;
 
 namespace DedasApp.API.Extensions;
 

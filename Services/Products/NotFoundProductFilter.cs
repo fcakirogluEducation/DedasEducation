@@ -1,8 +1,9 @@
 ﻿using System.Net;
-using DedasApp.API.Consts;
-using DedasApp.API.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Repositories.Consts;
+using Repositories.Products;
 
 namespace DedasApp.API.Models.Products;
 

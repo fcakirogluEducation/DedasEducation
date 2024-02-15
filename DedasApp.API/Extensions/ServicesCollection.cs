@@ -2,6 +2,7 @@
 using DedasApp.API.Models.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Services.Products;
 
 namespace DedasApp.API.Extensions;
 

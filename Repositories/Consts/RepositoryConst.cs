@@ -1,4 +1,4 @@
-﻿namespace DedasApp.API.Consts;
+﻿namespace Repositories.Consts;
 
 public class RepositoryConst
 {

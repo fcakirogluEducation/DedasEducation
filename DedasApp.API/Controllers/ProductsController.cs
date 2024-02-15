@@ -1,6 +1,6 @@
-﻿using DedasApp.API.Models.ProductModels;
-using DedasApp.API.Models.Services;
+﻿using DedasApp.API.Models.Services;
 using Microsoft.AspNetCore.Mvc;
+using Services.Products.Dtos;
 
 namespace DedasApp.API.Controllers;
 

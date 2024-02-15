@@ -1,6 +1,4 @@
-﻿using DedasApp.API.Models.ProductModels;
-
-namespace DedasApp.API.Models.Repositories;
+﻿namespace Repositories.Products;
 
 public class ProductRepositoryWithInMemory : IProductRepository
 {
