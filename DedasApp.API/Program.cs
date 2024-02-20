@@ -1,6 +1,8 @@
 using DedasApp.API.Extensions;
 using DedasApp.API.Filters;
 using DedasApp.API.Middlewares;
+using Microsoft.EntityFrameworkCore;
+using Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,13 @@ builder.Services.AddBehaviorConfigure().AddControllers(x => x.Filters.Add<Valida
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices().AddRepositories();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
+        opt => { opt.MigrationsAssembly("Repositories"); });
+});
+
 
 var app = builder.Build();
 

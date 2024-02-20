@@ -2,12 +2,13 @@
 using DedasApp.API.Models;
 using DedasApp.API.Models.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Repositories.Consts;
 using Repositories.Products;
 using Services.Products.Dtos;
 
 namespace Services.Products;
 
-public class ProductService([FromKeyedServices("in-memory")] IProductRepository productRepository)
+public class ProductService([FromKeyedServices(RepositoryConst.SqlServer)] IProductRepository productRepository)
     : IProductService
 {
     public Response<List<ProductDto>> GetAll()
@@ -41,7 +42,6 @@ public class ProductService([FromKeyedServices("in-memory")] IProductRepository 
     {
         var newProduct = new Product
         {
-            Id = new Random().Next(1, 10000),
             Name = request.Name!,
             Price = request.Price!.Value,
             Barcode = "abc",

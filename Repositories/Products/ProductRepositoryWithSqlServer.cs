@@ -1,34 +1,64 @@
-﻿namespace Repositories.Products;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class ProductRepositoryWithSqlServer : IProductRepository
+namespace Repositories.Products;
+
+public class ProductRepositoryWithSqlServer(AppDbContext context) : IProductRepository
 {
     public IReadOnlyList<Product> GetAll()
     {
-        throw new NotImplementedException();
+        // business store procedure
+        return context.Products.AsNoTracking().ToList().AsReadOnly();
     }
 
     public Product? GetById(int id)
     {
-        throw new NotImplementedException();
+        var product = context.Products.First(x => x.Id == id);
+
+        //var state = context.Entry(product).State;
+
+
+        //product.Name = "kalem 1";
+
+
+        //context.Products.Update(product);
+        //context.SaveChanges();
+
+
+        //var state2 = context.Entry(product).State;
+        return product;
     }
 
     public void Create(Product product)
     {
-        throw new NotImplementedException();
+        var state = context.Entry(product).State;
+
+
+        context.Entry(product).State = EntityState.Added;
+        // context.Products.Add(product); // change tracker ?
+
+        var state2 = context.Entry(product).State;
+
+
+        context.SaveChanges();
     }
 
     public void Update(Product product)
     {
-        throw new NotImplementedException();
+        // context.Entry(product).State = EntityState.Modified;
+        context.Products.Update(product);
+        context.SaveChanges();
     }
 
     public void Delete(Product productToDelete)
     {
-        throw new NotImplementedException();
+        //context.Entry(productToDelete).State = EntityState.Deleted;
+        context.Products.Remove(productToDelete);
+
+        context.SaveChanges();
     }
 
     public Product? GetByName(string name)
     {
-        throw new NotImplementedException();
+        return context.Products.FirstOrDefault(x => x.Name == name);
     }
 }
