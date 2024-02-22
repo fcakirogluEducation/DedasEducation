@@ -6,6 +6,7 @@ using Repositories.ProductFeatures;
 using Repositories.Products;
 
 namespace DedasApp.API.Controllers;
+
 [Route("api/[controller]/[action]")]
 [ApiController]
 public class ExampleController(AppDbContext context) : ControllerBase
