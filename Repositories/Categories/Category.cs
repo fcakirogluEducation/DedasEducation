@@ -13,6 +13,6 @@ namespace Repositories.Categories
         public string Name { get; set; }
 
         // Navigation property
-        public List<Product>? Products { get; set; }
+        public virtual List<Product>? Products { get; set; }
     }
 }

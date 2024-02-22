@@ -25,7 +25,7 @@ public class Product
     public int CategoryId { get; set; }
 
 
-    public Category Category { get; set; } = default!;
+    public virtual Category Category { get; set; } = default!;
 
-    public ProductFeature? ProductFeature { get; set; }
+    public virtual ProductFeature? ProductFeature { get; set; }
 }
