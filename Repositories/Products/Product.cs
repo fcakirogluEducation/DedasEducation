@@ -5,7 +5,7 @@ using Repositories.ProductFeatures;
 namespace Repositories.Products;
 
 //[Table("ProductsTB")]
-public class Product
+public class Product : BaseEntity
 {
     //[Key]
     public int Id { get; set; }
@@ -16,7 +16,6 @@ public class Product
     //[Precision(18, 2)]
     public decimal Price { get; set; }
 
-    public DateTime Created { get; set; }
 
     public string Barcode { get; set; } = null!;
 

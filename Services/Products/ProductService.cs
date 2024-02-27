@@ -45,7 +45,7 @@ public class ProductService([FromKeyedServices(RepositoryConst.SqlServer)] IProd
             Name = request.Name!,
             Price = request.Price!.Value,
             Barcode = "abc",
-            Created = DateTime.Now
+            CategoryId = 2
         };
 
 

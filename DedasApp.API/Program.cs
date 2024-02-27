@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddBehaviorConfigure().AddControllers(x => x.Filters.Add<ValidationFilterAttribute>());
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices().AddRepositories();
