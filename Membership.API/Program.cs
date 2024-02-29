@@ -1,6 +1,10 @@
+using System.Text;
 using Membership.API.Models;
 using Membership.API.Models.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +36,33 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 
 builder.Services.AddScoped<IdentityService>();
 
+
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
+{
+    // imza
+    // ömrü
+    // aud
+    // issuer
+    var securityKey = builder.Configuration.GetSection("TokenOptions")["SecurityKey"]!;
+    var audience = builder.Configuration.GetSection("TokenOptions")["Audience"]!;
+    var issuer = builder.Configuration.GetSection("TokenOptions")["Issuer"]!;
+    option.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidIssuer = issuer,
+        ValidateAudience = true,
+        ValidAudience = audience,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey)),
+        ValidateIssuerSigningKey = true
+    };
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,7 +73,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
