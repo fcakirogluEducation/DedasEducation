@@ -1,4 +1,5 @@
 using Membership.API.Models;
+using Membership.API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,9 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
     options.Lockout.MaxFailedAccessAttempts = 5;
 }).AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddScoped<IdentityService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

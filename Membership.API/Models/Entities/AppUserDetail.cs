@@ -1,4 +1,4 @@
-﻿namespace Membership.API.Models
+﻿namespace Membership.API.Models.Entities
 {
     public class AppUserDetail
     {

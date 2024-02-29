@@ -1,6 +1,6 @@
-﻿namespace Membership.API.DTOs
+﻿namespace Membership.API.Models.DTOs
 {
-    public class UserCreateDto
+    public class SigninDto
     {
         public string Email { get; set; } = default!;
         public string Password { get; set; } = default!;

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using Membership.API.DTOs;
 using Membership.API.Models;
+using Membership.API.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
