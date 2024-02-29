@@ -22,5 +22,13 @@ namespace Membership.API.Controllers
         {
             return Ok("post Product");
         }
+
+
+        [Authorize(Policy = "CityWithIstanbulPolicy")]
+        [HttpPut]
+        public IActionResult Put()
+        {
+            return Ok("put Product");
+        }
     }
 }

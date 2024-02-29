@@ -43,12 +43,18 @@ namespace Membership.API.Models
                 new Claim(ClaimTypes.Email, hasUser.Email!),
                 new Claim(ClaimTypes.Name, hasUser.UserName!),
             };
-
+            // roles
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
+            //Claims
+
+            foreach (var claim in await userManager.GetClaimsAsync(hasUser))
+            {
+                claims.Add(claim);
+            }
 
             // audience => aud => http://
 

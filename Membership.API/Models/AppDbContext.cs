@@ -1,5 +1,4 @@
 ﻿using Membership.API.Models.Entities;
-using Membership.API.Models.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

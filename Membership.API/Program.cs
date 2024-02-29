@@ -1,10 +1,8 @@
-using System.Text;
 using Membership.API.Models;
-using Membership.API.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +58,15 @@ builder.Services.AddAuthentication(option =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey)),
         ValidateIssuerSigningKey = true
     };
+});
+
+
+builder.Services.AddAuthorization(option =>
+{
+    // claim based
+
+    option.AddPolicy("CityWithIstanbulPolicy",
+        configurePolicy => { configurePolicy.RequireClaim("city", "istanbul"); });
 });
 
 
