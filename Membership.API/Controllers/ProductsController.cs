@@ -30,5 +30,13 @@ namespace Membership.API.Controllers
         {
             return Ok("put Product");
         }
+
+
+        [Authorize(Policy = "BirthDatePolicy")]
+        [HttpDelete]
+        public IActionResult Delete()
+        {
+            return Ok("put Product");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
 using Membership.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +19,8 @@ namespace Membership.API.Controllers
             var user = await userManager.FindByEmailAsync("mehmet@outlook.com");
 
 
-            await userManager.AddClaimAsync(user!, new Claim("city", "istanbul"));
+            await userManager.AddClaimAsync(user!,
+                new Claim("birthDate", new DateTime(2005, 1, 1).ToString(CultureInfo.InvariantCulture)));
 
 
             return Ok();

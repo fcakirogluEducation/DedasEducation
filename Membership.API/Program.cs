@@ -1,8 +1,10 @@
 using Membership.API.Models;
+using Membership.API.Requirements;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +35,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 }).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddScoped<IdentityService>();
-
+builder.Services.AddScoped<IAuthorizationHandler, BirthDateCheckRequirementHandler>();
 
 builder.Services.AddAuthentication(option =>
 {
@@ -67,6 +69,13 @@ builder.Services.AddAuthorization(option =>
 
     option.AddPolicy("CityWithIstanbulPolicy",
         configurePolicy => { configurePolicy.RequireClaim("city", "istanbul"); });
+
+    option.AddPolicy("CityWithIstanbulPolicy2",
+        configurePolicy => { configurePolicy.RequireClaim("city", "istanbul", "ankara", "erzurum"); });
+
+    //Policy based
+    option.AddPolicy("BirthDatePolicy",
+        configurePolicy => { configurePolicy.AddRequirements(new BirthDateCheckRequirement() { Age = 20 }); });
 });
 
 
