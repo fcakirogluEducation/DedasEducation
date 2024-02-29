@@ -14,5 +14,13 @@ namespace Membership.API.Controllers
         {
             return Ok("products");
         }
+
+
+        [Authorize(Roles = "editor")]
+        [HttpPost]
+        public IActionResult Post()
+        {
+            return Ok("post Product");
+        }
     }
 }

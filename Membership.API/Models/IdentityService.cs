@@ -27,6 +27,9 @@ namespace Membership.API.Models
                 return (false, "email veya password yanlış");
             }
 
+            var roles = await userManager.GetRolesAsync(hasUser);
+
+
             var tokenExpire = configuration.GetSection("TokenOptions")["AccessTokenExpire"]!;
             var securityKey = configuration.GetSection("TokenOptions")["SecurityKey"]!;
             var audience = configuration.GetSection("TokenOptions")["Audience"]!;
@@ -40,6 +43,13 @@ namespace Membership.API.Models
                 new Claim(ClaimTypes.Email, hasUser.Email!),
                 new Claim(ClaimTypes.Name, hasUser.UserName!),
             };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+
             // audience => aud => http://
 
             var token = new JwtSecurityToken(
